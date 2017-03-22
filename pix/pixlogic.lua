@@ -28,11 +28,24 @@ function Pl.removeNil(t) --[ut]
 	i = 1
 	for a,b in pairs(t) do
 		if (b) then
-			n = Pl.addAt(n, i, b)
-			i = i + 1
+			if (type(a)=="string") then
+				n = Pl.addAt(n, a, b)
+			else
+				n = Pl.addAt(n, i, b)
+				i = i + 1
+			end
 		end
 	end
 	return n
+end
+
+function Pl.tableContains(t, v)
+	for a,b in pairs(t) do
+		if (b == v) then
+			return true
+		end
+	end
+	return false
 end
 
 return Pl

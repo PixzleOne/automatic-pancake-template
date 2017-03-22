@@ -1,61 +1,82 @@
+--[[
+	Made by 
+	PixzleOne
+	2017
+
+	Funcitons:
+		-addBind(bindId, keys)
+			keys can be a string or an array of strings
+		-removeBind(bindId)
+		-update
+			only needed for isPressed() to work properly
+		-isDown(bindId)
+		-isPressed(bindId)
+
+	How to use:
+		-require this file
+		-ex. "keybinds = Keybinds()"
+		-call "keybinds:update()" at end of frame for isPressed to work
+]]
+
 local L = require("pix/pixlogic")
-
-local Bind = Object:extend()
-
-function Bind:new(id, key)
-	self.id = id
-	self.key = key
-end
 
 Keybinds = Object:extend()
 
 function Keybinds:new()
 	self.binds = {}
+	self.last = {}
 end
 
 function Keybinds:addBind(id, keys)
 	if (type(keys) ~= "table") then keys = {keys} end
+	assert(keys) --otherwise we could get empty stuff!! :(
+
+	if not (self.binds[id]) then
+		self.binds[id] = {}
+	end
 
 	for i,key in pairs(keys) do
-		if (self.binds[key]) then
-			self.binds[key] = L.addAtEnd(self.binds[key], id)
-		else
-			self.binds[key] = {id}
+		if not (L.tableContains(self.binds[id], key)) then
+			self.binds[id] = L.addAtEnd(self.binds[id], key)
 		end
 	end
 end
 
-function Keybinds:removeBind(id)
-	for key, ids in pairs(self.binds) do
+function Keybinds:removeBind(_id)
+	for id, keyids in pairs(self.binds) do
 		
-		did = false
-		
-		for inid,acid in pairs(ids) do
-			if (acid == id) then
-				self.binds[key][inid] = nil
-				did = true
-			end
+		if (id == _id) then
+			self.binds[id] = nil
+			self.binds = L.removeNil(self.binds)
+			if (L.tablelength(self.binds)==0) then return end
 		end
+	end
+end
 
-		if (did) then
-			self.binds[key] = L.removeNil(self.binds[key])
-			if (L.tablelength(self.binds[key]) == 0) then
-				self.binds[key] = nil
-
-				if (L.tablelength(self.binds) == 0) then
-					return --break loop
-				end
-			end
+function Keybinds:update()
+	self.last = {}
+	for a,b in pairs(self.binds) do
+		if self:isDown(a) then
+			self.last = L.addAtEnd(self.last, tostring(a))
 		end
 	end
 end
 
 function Keybinds:isDown(id)
-	for key, ids in pairs(self.binds) do
-	--	if ()
+	if not (self.binds[id]) then
+		return false
 	end
+	
+	for a,b in pairs(self.binds[id]) do
+		if (love.keyboard.isDown(b)) then
+			return true
+		end
+	end
+
+	return false
 end
 
-function Keybinds:isPressed(id)
 
+function Keybinds:isPressed(id)
+	return (self:isDown(id) and (not L.tableContains(self.last, id)))
 end
