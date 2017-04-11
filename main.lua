@@ -3,6 +3,8 @@ Logic = require("pix/pixlogic")
 
 pprint = require("lib/pprint")
 
+local camera = require("pix/pixcamera")
+
 function love.load()
 	love.graphics.setDefaultFilter("nearest", "nearest")
 
@@ -14,6 +16,8 @@ function love.load()
 
 	b = 0
 	k = false
+
+	camera:set(-10,-10)
 end
 
 function love.update(dt)
@@ -21,15 +25,12 @@ function love.update(dt)
 
 	a:update(dt)
 
-	b = b + dt
-	if (b > 2 and k == false) then 
-		a:set("test")
-		k = true
-	end
+	camera:move(dt*5, dt*5)
 end
 
 function love.draw()
 	love.graphics.scale(2, 2)
 
+	camera:draw()
 	a:draw()
 end
