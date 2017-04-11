@@ -12,14 +12,25 @@ function States:add(name, altLoc)
 	self.states = L.addAt(self.states, name, require(loc))
 end
 
+function States:remove(name) --UNTESTED
+	self.states[name] = nil
+end
+
 function States:load(name)
-	self.states[name].load()
+	self.currentState = name
+	if not (self.currentState == name) then
+		self.states[self.currentState].load()
+	end
 end
 
 function States:update(dt)
-	self.states[name].update(dt)
+	if not (self.currentState == name) then
+		self.states[self.currentState].update(dt)
+	end
 end
 
 function States:draw()
-	self.states[name].draw()
+	if not (self.currentState == name) then
+		self.states[self.currentState].draw()
+	end
 end
