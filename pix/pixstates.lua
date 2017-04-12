@@ -1,3 +1,28 @@
+--[[
+	Made by 
+	PixzleOne
+	2017
+
+	Functions:
+		-add(name, [alternative location])
+			add a state to the list, fetched from "states/[name]", 
+			or "[alternative location]" if provided 
+			(Alternative location might be untested)
+		-remove(name)
+			untested but should just remove a state from the list
+				 (lol)
+		-load(name)
+			loads state [name] from the list, 
+			and calls load in said state
+		-update()
+			calls update in currently loaded state
+		-draw()
+			same as update, but draw
+
+	Variables:
+		x, y - the position of the camera
+]]
+
 local L = require("pix/pixlogic")
 
 States = Object:extend()
@@ -25,9 +50,9 @@ function States:load(name)
 	self.currentState = name
 end
 
-function States:update(dt)
+function States:update()
 	if (self.states[self.currentState].update ~= nil) then
-		self.states[self.currentState].update(dt)
+		self.states[self.currentState].update()
 	end
 end
 

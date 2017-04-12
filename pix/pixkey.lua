@@ -3,7 +3,7 @@
 	PixzleOne
 	2017
 
-	Funcitons:
+	Functions:
 		-addBind(bindId, keys)
 			keys can be a string or an array of strings
 		-removeBind(bindId)

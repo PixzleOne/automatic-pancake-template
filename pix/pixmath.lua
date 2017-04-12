@@ -1,3 +1,11 @@
+--[[
+	Made by 
+	PixzleOne
+	2017
+
+		No Comment
+]]
+
 Math = {}
 
 function Math.normalizeAngle(a)

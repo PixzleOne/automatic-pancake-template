@@ -1,4 +1,5 @@
 M = require("pix/pixmath")
+local bump = require("bump")
 
 Player = Object:extend()
 
@@ -15,6 +16,9 @@ function Player:new(x, y)
 	self.animation:add("run", "graphics/run.png", 12, 25)
 	self.animation:add("idle", "graphics/idle.png", 1, 10)
 	self.animation:set("run")
+
+	self.collider = {name = "player"}
+	
 end
 
 function Player:update()

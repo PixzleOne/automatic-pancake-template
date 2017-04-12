@@ -1,3 +1,25 @@
+--[[
+	Made by 
+	PixzleOne
+	2017
+
+	Functions:
+		-add(name, path, [nr], [speed])
+			adds animation to list with name [name],
+			image from path [path],
+			with [nr] or frames
+			and plays at [speed]
+		-set(name)
+			sets animation to [name] from list
+		-update()
+			animates
+			flip(x,y)
+				x and y are booleans
+				if true, sprite is flipped in said axis
+		-draw(x,y)
+			draws animated sprite at x, y
+]]
+
 local L = require("pix/pixlogic")
 
 A = Object:extend()
@@ -29,7 +51,7 @@ function Animations:new()
 end
 
 function Animations:add(name, path, nr, speed)
-	anim = A(path, nr, speed)
+	anim = A(path, nr or 1, speed or 10)
 	self.animations[name] = anim
 end
 
@@ -48,10 +70,6 @@ function Animations:set(name)
 	else
 		self.currentSpeed = 1
 	end
-end
-
-function Animations:setSpeed(s)
-	self.currentSpeed = s
 end
 
 function Animations:update()
