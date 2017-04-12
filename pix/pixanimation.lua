@@ -34,6 +34,10 @@ function Animations:add(name, path, nr, speed)
 end
 
 function Animations:set(name)
+	if (self.currentAnim == name) then
+		return
+	end
+
 	self.currentAnim = name
 	self.currentFrame = 1
 	self.timeToNext = 0	
@@ -50,7 +54,7 @@ function Animations:setSpeed(s)
 	self.currentSpeed = s
 end
 
-function Animations:update(dt)
+function Animations:update()
 	self.timeToNext = self.timeToNext + dt*self.currentSpeed
 
 	if (self.timeToNext > 1) then
@@ -65,10 +69,29 @@ function Animations:update(dt)
 	end
 end
 
+function Animations:flip(x, y)
+	self.flipx, self.flipy = x or false, y or false
+end
+
 function Animations:draw(x, y)
 	image = self.animations[self.currentAnim].image
 	frame = self.animations[self.currentAnim].frames[self.currentFrame]
-	love.graphics.draw(image, frame, x, y)
+	frx, fry, fw, fh = frame:getViewport()
+
+	fx, fy = 1, 1
+	ox, oy = 0, 0
+
+	if (self.flipx) then
+		fx = -1
+		ox = 1
+	end
+
+	if (self.flipy) then
+		fy = -1
+		oy = 1
+	end
+
+	love.graphics.draw(image, frame, x + (ox*fw), y + (oy*fh), 0, fx, fy)
 end
 
 return Animations

@@ -3,34 +3,32 @@ Logic = require("pix/pixlogic")
 
 pprint = require("lib/pprint")
 
-local camera = require("pix/pixcamera")
-
 function love.load()
 	love.graphics.setDefaultFilter("nearest", "nearest")
-
-	require("pix/pixanimation")
-	a = Animations()
-	a:add("run", "graphics/run.png", 12, 25)
-	a:add("test", "graphics/test.png", 3, 25)
-	a:set("run")
-
-	b = 0
-	k = false
-
-	camera:set(-10,-10)
+	
+	require("pix/pixstates")
+	gamestates = States()
+	gamestates:add("game")
+	gamestates:load("game")
+	
+	dt = 0
 end
 
-function love.update(dt)
+function love.update(deltatime)
 	require("lib/lovebird"):update()
 
-	a:update(dt)
+	dt = deltatime
+	gamestates:update(dt)
+end
 
-	camera:move(dt*5, dt*5)
+function love.keypressed(k)
+	if (k == "escape") then
+		love.event.quit()
+	end
 end
 
 function love.draw()
 	love.graphics.scale(2, 2)
 
-	camera:draw()
-	a:draw()
+	gamestates:draw()
 end

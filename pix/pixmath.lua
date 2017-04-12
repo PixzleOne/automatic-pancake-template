@@ -11,7 +11,6 @@ function Math.normalizeAngle(a)
 end
 
 function Math.angleBetween(v1, v2)
-	print(v1, v2)
 	--v1 is less than v2
 	if (v1 > v2) then
 		a = v1
@@ -80,6 +79,24 @@ function Math.clamp(x, min, max)
 	end
 
 	return x
+end
+
+function Math.btf(b)
+	if (b) then
+		return 1
+	end
+	return 0
+end
+
+function Math.isBetween(a, min, max)
+	if (min > max) then
+		min, max = max, min
+	end
+
+	if (a > min and a < max) then
+		return true
+	end
+	return false
 end
 
 return Math

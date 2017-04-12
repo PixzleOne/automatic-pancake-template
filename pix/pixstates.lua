@@ -9,7 +9,9 @@ end
 
 function States:add(name, altLoc)
 	loc = altLoc or "states/" .. name
-	self.states = L.addAt(self.states, name, require(loc))
+	locandloaded = require(loc)
+	assert(type(locandloaded) == "table", "Script doesn't return a table. Return missing?")
+	self.states = L.addAt(self.states, name, locandloaded)
 end
 
 function States:remove(name) --UNTESTED
@@ -17,20 +19,20 @@ function States:remove(name) --UNTESTED
 end
 
 function States:load(name)
-	self.currentState = name
 	if not (self.currentState == name) then
-		self.states[self.currentState].load()
+		self.states[name].load()
 	end
+	self.currentState = name
 end
 
 function States:update(dt)
-	if not (self.currentState == name) then
+	if (self.states[self.currentState].update ~= nil) then
 		self.states[self.currentState].update(dt)
 	end
 end
 
 function States:draw()
-	if not (self.currentState == name) then
+	if not (self.states[self.currentState].draw == nil) then
 		self.states[self.currentState].draw()
 	end
 end

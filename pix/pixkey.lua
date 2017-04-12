@@ -27,6 +27,10 @@ function Keybinds:new()
 	self.last = {}
 end
 
+function Keybinds:add(id, keys)
+	self:addBind(id, keys)
+end
+
 function Keybinds:addBind(id, keys)
 	if (type(keys) ~= "table") then keys = {keys} end
 	assert(keys) --otherwise we could get empty stuff!! :(
@@ -40,6 +44,10 @@ function Keybinds:addBind(id, keys)
 			self.binds[id] = L.addAtEnd(self.binds[id], key)
 		end
 	end
+end
+
+function Keybinds:remove(id)
+	self:removeBind(id)
 end
 
 function Keybinds:removeBind(_id)
@@ -62,6 +70,10 @@ function Keybinds:update()
 	end
 end
 
+function Keybinds:down(id)
+	return Keybinds:isDown(id)
+end
+
 function Keybinds:isDown(id)
 	if not (self.binds[id]) then
 		return false
@@ -76,6 +88,9 @@ function Keybinds:isDown(id)
 	return false
 end
 
+function Keybinds:pressed(id)
+	return self:isPressed(id)
+end
 
 function Keybinds:isPressed(id)
 	return (self:isDown(id) and (not L.tableContains(self.last, id)))
