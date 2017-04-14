@@ -1,13 +1,13 @@
 Object = require("lib/classic"):extend()
-G = require("pix/pixg")
+G = require("pixp/pixg")
 
 pprint = require("lib/pprint")
 
 function love.load()
+	--global deltatime
 	dt = 0
-end
 
-function settings()
+	--settings
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.scale(2, 2)
 end
@@ -15,7 +15,6 @@ end
 function love.update(delta)
 	require("lib/lovebird"):update()
 
-	--global deltatime
 	dt = delta
 end
 
@@ -27,5 +26,5 @@ function love.keypressed(k)
 end
 
 function love.draw()
-
+	
 end

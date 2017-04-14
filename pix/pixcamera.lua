@@ -17,10 +17,11 @@
 		x, y - the position of the camera
 ]]
 
-Pixcamera = {
-	x = 0,
-	y = 0
-}
+Pixcamera = Object:extend()
+
+function Pixcamera:new(x, y)
+	self.x, self.y = -x or 0, -y or 0
+end
 
 function Pixcamera:set(sx, sy)
 	self.x = -sx or 0
@@ -35,5 +36,3 @@ end
 function Pixcamera:draw()
 	love.graphics.translate(self.x, self.y)
 end
-
-return Pixcamera
