@@ -3,6 +3,8 @@
 	PixzleOne
 	2017
 
+	Requires G = require("pixg")
+
 	Functions:
 		-addBind(bindId, keys)
 			keys can be a string or an array of strings

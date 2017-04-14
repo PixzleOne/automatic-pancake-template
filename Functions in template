@@ -12,18 +12,16 @@ Util:
 		bool to float (true = 1, false = 0)
 	isBetween(a, min, max)
 		returns bool
-		
+
 Angles:
-normalizeAngle(a)
-	returns an angle between 0 and 360
-angleBetween(v1, v2)
-	returns the angle between 
-isAngleBetween(n,a,b)
-	is angle n between a and b?
-angleDif(targetA, targetB)
-	returns difference between angles
-
-
+	normalizeAngle(a)
+		returns an angle between 0 and 360
+	angleBetween(v1, v2)
+		returns the angle between 
+	isAngleBetween(n,a,b)
+		is angle n between a and b?
+	angleDif(targetA, targetB)
+		returns difference between angles
 
 Tables:
 	addAt(t, i, d)

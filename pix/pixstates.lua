@@ -2,6 +2,8 @@
 	Made by 
 	PixzleOne
 	2017
+	
+	Requires G = require("pixg")
 
 	Functions:
 		-add(name, [alternative location])
@@ -23,8 +25,6 @@
 		x, y - the position of the camera
 ]]
 
-local L = require("pix/pixlogic")
-
 States = Object:extend()
 
 function States:new()
@@ -36,7 +36,7 @@ function States:add(name, altLoc)
 	loc = altLoc or "states/" .. name
 	locandloaded = require(loc)
 	assert(type(locandloaded) == "table", "Script doesn't return a table. Return missing?")
-	self.states = L.addAt(self.states, name, locandloaded)
+	self.states[name] = locandloaded
 end
 
 function States:remove(name) --UNTESTED
