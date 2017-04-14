@@ -155,3 +155,5 @@ function pixg.table.contains(t, v)
 	end
 	return false
 end
+
+return pixg

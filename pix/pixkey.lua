@@ -4,7 +4,7 @@
 	2017
 
 	Requires G = require("pixg")
-
+	
 	Functions:
 		-addBind(bindId, keys)
 			keys can be a string or an array of strings
@@ -34,11 +34,11 @@ end
 function Keybinds:addBind(id, keys)
 	if (type(keys) ~= "table") then keys = {keys} end
 	assert(keys) --otherwise we could get empty stuff!! :(
-
+	
 	if not (self.binds[id]) then
 		self.binds[id] = {}
 	end
-
+	
 	for i,key in pairs(keys) do
 		if not (G.table.contains(self.binds[id], key)) then
 			self.binds[id] = G.table.addAtEnd(self.binds[id], key)
