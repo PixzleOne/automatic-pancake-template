@@ -6,7 +6,7 @@
 	update(dt)
 	setScale(s)
 	pause(t)
-
+	
 	Scale will reset after pause
 ]]
 

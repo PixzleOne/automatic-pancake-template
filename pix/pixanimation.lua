@@ -26,7 +26,7 @@ function Animation:new(path, nr, speed)
 	self.framecount = nr
 
 	self.frames = {}
-
+	
 	self.image = love.graphics.newImage(path)
 	frameheight = self.image:getHeight()
 	framewidth = self.image:getWidth()/nr

@@ -4,15 +4,22 @@ G = require("pix/pixg")
 pprint = require("lib/pprint")
 
 function love.load()
-	print(love.graphics.getWidth())
-
 	--settings
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.scale(2, 2)
+	--time
+	require("pix/pixtime")
+	time = Pixtime()
+
+	require("pix/pixcamera")
+	camera = Pixcamera()
+	camera:shake(20, 1)
 end
 
 function love.update(dt)
 	require("lib/lovebird"):update()
+	time:update(dt)
+	camera:update()
 end
 
 function love.keypressed(k)
@@ -23,5 +30,6 @@ function love.keypressed(k)
 end
 
 function love.draw()
-	
+	camera:draw()
+	love.graphics.circle("fill", 200, 200, 50, 50)
 end
