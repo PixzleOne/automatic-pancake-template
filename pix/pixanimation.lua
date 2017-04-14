@@ -20,11 +20,9 @@
 			draws animated sprite at x, y
 ]]
 
-local L = require("pix/pixlogic")
+Animation = Object:extend()
 
-A = Object:extend()
-
-function A:new(path, nr, speed)
+function Animation:new(path, nr, speed)
 	self.framecount = nr
 
 	self.frames = {}
@@ -34,12 +32,11 @@ function A:new(path, nr, speed)
 	framewidth = self.image:getWidth()/nr
 	for i=1, nr do
 		frame = love.graphics.newQuad((i-1)*framewidth, 0, framewidth, frameheight, self.image:getDimensions())
-		self.frames = L.addAt(self.frames, i, frame)
+		self.frames[i] = frame
 	end
 
 	self.speed = speed or -1
 end
-
 
 Animations = Object:extend()
 
@@ -51,7 +48,7 @@ function Animations:new()
 end
 
 function Animations:add(name, path, nr, speed)
-	anim = A(path, nr or 1, speed or 10)
+	anim = Animation(path, nr or 1, speed or 10)
 	self.animations[name] = anim
 end
 

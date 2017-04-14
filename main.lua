@@ -1,34 +1,31 @@
 Object = require("lib/classic"):extend()
-Logic = require("pix/pixlogic")
+G = require("pix/pixg")
 
 pprint = require("lib/pprint")
 
 function love.load()
-	love.graphics.setDefaultFilter("nearest", "nearest")
-	
-	require("pix/pixstates")
-	gamestates = States()
-	gamestates:add("game")
-	gamestates:load("game")
-	
 	dt = 0
 end
 
-function love.update(deltatime)
+function settings()
+	love.graphics.setDefaultFilter("nearest", "nearest")
+	love.graphics.scale(2, 2)
+end
+
+function love.update(delta)
 	require("lib/lovebird"):update()
 
-	dt = deltatime
-	gamestates:update(dt)
+	--global deltatime
+	dt = delta
 end
 
 function love.keypressed(k)
+	--quickly exit out when testing
 	if (k == "escape") then
 		love.event.quit()
 	end
 end
 
 function love.draw()
-	love.graphics.scale(2, 2)
 
-	gamestates:draw()
 end

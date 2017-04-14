@@ -18,8 +18,6 @@
 		-call "keybinds:update()" at end of frame for isPressed to work
 ]]
 
-local L = require("pix/pixlogic")
-
 Keybinds = Object:extend()
 
 function Keybinds:new()
@@ -40,8 +38,8 @@ function Keybinds:addBind(id, keys)
 	end
 
 	for i,key in pairs(keys) do
-		if not (L.tableContains(self.binds[id], key)) then
-			self.binds[id] = L.addAtEnd(self.binds[id], key)
+		if not (G.table.contains(self.binds[id], key)) then
+			self.binds[id] = G.table.addAtEnd(self.binds[id], key)
 		end
 	end
 end
@@ -55,8 +53,8 @@ function Keybinds:removeBind(_id)
 		
 		if (id == _id) then
 			self.binds[id] = nil
-			self.binds = L.removeNil(self.binds)
-			if (L.tablelength(self.binds)==0) then return end
+			self.binds = G.table.clean(self.binds)
+			if (G.table.length(self.binds)==0) then return end
 		end
 	end
 end
@@ -65,7 +63,7 @@ function Keybinds:update()
 	self.last = {}
 	for a,b in pairs(self.binds) do
 		if self:isDown(a) then
-			self.last = L.addAtEnd(self.last, tostring(a))
+			self.last = G.table.addAtEnd(self.last, tostring(a))
 		end
 	end
 end
@@ -93,5 +91,5 @@ function Keybinds:pressed(id)
 end
 
 function Keybinds:isPressed(id)
-	return (self:isDown(id) and (not L.tableContains(self.last, id)))
+	return (self:isDown(id) and (not G.table.contains(self.last, id)))
 end
