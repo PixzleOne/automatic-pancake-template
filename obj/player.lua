@@ -1,5 +1,5 @@
 M = require("pix/pixmath")
-local bump = require("bump")
+local bump = require("lib/bump")
 
 Player = Object:extend()
 
