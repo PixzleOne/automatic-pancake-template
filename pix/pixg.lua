@@ -64,6 +64,10 @@ function pixg.isBetween(a, min, max)
 	return false
 end
 
+function pixg.lerp(a, b, t)
+	return a + (b- a) * t
+end
+
 --
 --	Angles
 --
