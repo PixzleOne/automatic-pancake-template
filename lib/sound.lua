@@ -1,3 +1,5 @@
+--https://love2d.org/wiki/Minimalist_Sound_Manager
+
 do
     -- will hold the currently playing sources
     local sources = {}

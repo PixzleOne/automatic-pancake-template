@@ -74,6 +74,14 @@ end
 
 pixg.angle = {}
 
+function pixg.angle.toRadians(a)
+	return a * math.pi / 180
+end
+
+function pixg.angle.toDegrees(a)
+	return a * 180 / math.pi
+end
+
 function pixg.angle.normalize(a)
 	a = a % 360
 

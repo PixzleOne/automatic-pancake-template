@@ -16,22 +16,22 @@
 
 	How to use:
 		-require this file
-		-ex. "keybinds = Keybinds()"
+		-ex. "keybinds = Pixbinds()"
 		-call "keybinds:update()" at end of frame for isPressed to work
 ]]
 
-Keybinds = Object:extend()
+Pixbinds = Object:extend()
 
-function Keybinds:new()
+function Pixbinds:new()
 	self.binds = {}
 	self.last = {}
 end
 
-function Keybinds:add(id, keys)
+function Pixbinds:add(id, keys)
 	self:addBind(id, keys)
 end
 
-function Keybinds:addBind(id, keys)
+function Pixbinds:addBind(id, keys)
 	if (type(keys) ~= "table") then keys = {keys} end
 	assert(keys) --otherwise we could get empty stuff!! :(
 	
@@ -46,11 +46,11 @@ function Keybinds:addBind(id, keys)
 	end
 end
 
-function Keybinds:remove(id)
+function Pixbinds:remove(id)
 	self:removeBind(id)
 end
 
-function Keybinds:removeBind(_id)
+function Pixbinds:removeBind(_id)
 	for id, keyids in pairs(self.binds) do
 		
 		if (id == _id) then
@@ -61,7 +61,7 @@ function Keybinds:removeBind(_id)
 	end
 end
 
-function Keybinds:update()
+function Pixbinds:update()
 	self.last = {}
 	for a,b in pairs(self.binds) do
 		if self:isDown(a) then
@@ -70,11 +70,11 @@ function Keybinds:update()
 	end
 end
 
-function Keybinds:down(id)
-	return Keybinds:isDown(id)
+function Pixbinds:down(id)
+	return Pixbinds:isDown(id)
 end
 
-function Keybinds:isDown(id)
+function Pixbinds:isDown(id)
 	if not (self.binds[id]) then
 		return false
 	end
@@ -88,10 +88,10 @@ function Keybinds:isDown(id)
 	return false
 end
 
-function Keybinds:pressed(id)
+function Pixbinds:pressed(id)
 	return self:isPressed(id)
 end
 
-function Keybinds:isPressed(id)
+function Pixbinds:isPressed(id)
 	return (self:isDown(id) and (not G.table.contains(self.last, id)))
 end

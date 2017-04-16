@@ -12,12 +12,32 @@ function love.load()
 	--time
 	require("pix/pixtime")
 	time = Pixtime()
+
+	--states
+	require("pix/pixstates")
+	gamestates = Pixstates()
+
+	--intro
+	gamestates:add("intro", "intro/intro")
+	gamestates:load("intro")
+	introdone = false
+end
+
+function introisdone()
+	introdone = true
+
+	--post-intro code here
 end
 
 function love.update(dt)
 	require("lib/lovebird"):update()
+	
+	if (gamestates.currentState == "" and not introdone) then
+		introisdone()
+	end
 
 	time:update(dt)
+	gamestates:update()
 end
 
 function love.keypressed(k)
@@ -28,5 +48,5 @@ function love.keypressed(k)
 end
 
 function love.draw()
-
+	gamestates:draw()
 end

@@ -25,39 +25,43 @@
 		x, y - the position of the camera
 ]]
 
-States = Object:extend()
+Pixstates = Object:extend()
 
-function States:new()
+function Pixstates:new()
 	self.currentState = ""
 	self.states = {}
 end
 
-function States:add(name, altLoc)
+function Pixstates:add(name, altLoc)
 	loc = altLoc or "states/" .. name
 	locandloaded = require(loc)
 	assert(type(locandloaded) == "table", "Script doesn't return a table. Return missing?")
 	self.states[name] = locandloaded
 end
 
-function States:remove(name) --UNTESTED
+function Pixstates:remove(name) --UNTESTED
 	self.states[name] = nil
 end
 
-function States:load(name)
+function Pixstates:load(name)
 	if not (self.currentState == name) then
 		self.states[name].load()
 	end
 	self.currentState = name
 end
 
-function States:update()
-	if (self.states[self.currentState].update ~= nil) then
+function Pixstates:unload()
+	self.currentState = ""
+end
+
+function Pixstates:update()
+	if (self.states[self.currentState] ~= nil and self.states[self.currentState].update ~= nil) then
 		self.states[self.currentState].update()
 	end
 end
 
-function States:draw()
-	if not (self.states[self.currentState].draw == nil) then
+function Pixstates:draw()
+	if (self.states[self.currentState] ~= nil and self.states[self.currentState].draw ~= nil) then
 		self.states[self.currentState].draw()
 	end
 end

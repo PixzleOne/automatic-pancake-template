@@ -38,21 +38,21 @@ function Animation:new(path, nr, speed)
 	self.speed = speed or -1
 end
 
-Animations = Object:extend()
+Pixanimations = Object:extend()
 
-function Animations:new()
+function Pixanimations:new()
 	self.animations = {}
 	self.currentAnim = ""
 	self.currentFrame = 1
 	self.currentSpeed = 10
 end
 
-function Animations:add(name, path, nr, speed)
+function Pixanimations:add(name, path, nr, speed)
 	anim = Animation(path, nr or 1, speed or 10)
 	self.animations[name] = anim
 end
 
-function Animations:set(name)
+function Pixanimations:set(name)
 	if (self.currentAnim == name) then
 		return
 	end
@@ -69,7 +69,7 @@ function Animations:set(name)
 	end
 end
 
-function Animations:update()
+function Pixanimations:update()
 	self.timeToNext = self.timeToNext + dt*self.currentSpeed
 
 	if (self.timeToNext > 1) then
@@ -84,11 +84,11 @@ function Animations:update()
 	end
 end
 
-function Animations:flip(x, y)
+function Pixanimations:flip(x, y)
 	self.flipx, self.flipy = x or false, y or false
 end
 
-function Animations:draw(x, y)
+function Pixanimations:draw(x, y)
 	image = self.animations[self.currentAnim].image
 	frame = self.animations[self.currentAnim].frames[self.currentFrame]
 	frx, fry, fw, fh = frame:getViewport()
@@ -109,4 +109,4 @@ function Animations:draw(x, y)
 	love.graphics.draw(image, frame, x + (ox*fw), y + (oy*fh), 0, fx, fy)
 end
 
-return Animations
+return Pixanimations
