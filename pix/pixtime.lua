@@ -21,7 +21,7 @@ end
 function Pixtime:update(dt)
 	if (self.pauseleft ~= 0) then
 		self.scale = 0
-
+		
 		self.pauseleft = self.pauseleft - dt
 		if (self.pauseleft < 0) then
 			self.scale = self.scaleBeforePause

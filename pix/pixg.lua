@@ -16,7 +16,7 @@ pixg = {}
 
 function pixg.tablelength(t)
 	print("USE pixg.table.length DAMMIT!")
-	return pixg.table.lenth(t)
+	return pixg.table.length(t)
 end
 
 function pixg.sign(a)
@@ -129,6 +129,10 @@ end
 pixg.table = {}
 
 function pixg.table.length(t)
+	if not (t) then
+		return 0
+	end
+
 	i = 0
 	for a,b in pairs(t) do
 		i = i + 1
@@ -137,7 +141,7 @@ function pixg.table.length(t)
 	return i
 end
 
-function pixg.table.addAtEnd(t)
+function pixg.table.addAtEnd(t, d)
 	t[pixg.table.length(t)+1] = d
 	return t
 end

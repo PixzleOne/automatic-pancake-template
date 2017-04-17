@@ -88,25 +88,26 @@ function Pixanimations:flip(x, y)
 	self.flipx, self.flipy = x or false, y or false
 end
 
-function Pixanimations:draw(x, y)
+function Pixanimations:draw(x, y, r, sx, sy)
 	image = self.animations[self.currentAnim].image
 	frame = self.animations[self.currentAnim].frames[self.currentFrame]
 	frx, fry, fw, fh = frame:getViewport()
 
 	fx, fy = 1, 1
-	ox, oy = 0, 0
 
 	if (self.flipx) then
 		fx = -1
-		ox = 1
 	end
 
 	if (self.flipy) then
 		fy = -1
-		oy = 1
 	end
 
-	love.graphics.draw(image, frame, x + (ox*fw), y + (oy*fh), 0, fx, fy)
+	r = r or 0
+	sx = sx or 1
+	sy = sy or 1
+
+	love.graphics.draw(image, frame, x + (fw/2), y + (fh/2), r, fx*sx, fy*sy, fw/2, fh/2)
 end
 
 return Pixanimations
