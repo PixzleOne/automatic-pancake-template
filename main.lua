@@ -13,6 +13,11 @@ function love.load()
 	require("pix/pixtime")
 	time = Pixtime()
 
+	require("pix/pixanimation")
+	animd = Pixanimations()
+	animd:add("climbing", "graphics/climbing.png", 6, 3, true)
+	animd:set("climbing")
+
 	--states
 	require("pix/pixstates")
 	gamestates = Pixstates()
@@ -37,6 +42,7 @@ function love.update(dt)
 	end
 
 	time:update(dt)
+	animd:update()
 	gamestates:update()
 end
 
@@ -44,9 +50,13 @@ function love.keypressed(k)
 	--quickly exit out when testing
 	if (k == "escape") then
 		love.event.quit()
+	elseif (k == "a") then
+		animd:set("climbing")
+		print("s")
 	end
 end
 
 function love.draw()
+	animd:draw(10, 10)
 	gamestates:draw()
 end

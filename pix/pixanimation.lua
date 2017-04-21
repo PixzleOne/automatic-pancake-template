@@ -22,8 +22,10 @@
 
 Animation = Object:extend()
 
-function Animation:new(path, nr, speed)
+function Animation:new(path, nr, speed, oneshot)
 	self.framecount = nr
+
+	self.oneshot = oneshot
 
 	self.frames = {}
 	
@@ -47,13 +49,13 @@ function Pixanimations:new()
 	self.currentSpeed = 10
 end
 
-function Pixanimations:add(name, path, nr, speed)
-	anim = Animation(path, nr or 1, speed or 10)
+function Pixanimations:add(name, path, nr, speed, oneshot)
+	anim = Animation(path, nr or 1, speed or 10, oneshot or false)
 	self.animations[name] = anim
 end
 
 function Pixanimations:set(name)
-	if (self.currentAnim == name) then
+	if (self.currentAnim == name and (not self.animations[name].oneshot)) then
 		return
 	end
 
@@ -70,7 +72,7 @@ function Pixanimations:set(name)
 end
 
 function Pixanimations:update()
-	self.timeToNext = self.timeToNext + dt*self.currentSpeed
+	self.timeToNext = self.timeToNext + time.delta*self.currentSpeed
 
 	if (self.timeToNext > 1) then
 
@@ -78,7 +80,11 @@ function Pixanimations:update()
 		self.currentFrame = self.currentFrame + 1
 
 		if (self.currentFrame > self.animations[self.currentAnim].framecount) then
-			self.currentFrame = 1
+			if (self.animations[self.currentAnim].oneshot) then
+				self.currentFrame = self.animations[self.currentAnim].framecount
+			else
+				self.currentFrame = 1
+			end
 		end
 
 	end
